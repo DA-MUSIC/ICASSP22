@@ -1,5 +1,7 @@
 # DEEP AUGMENTED MUSIC ALGORITHM FOR DATA-DRIVEN DOA ESTIMATION
 
+[Deep Augmented MUSIC Algorithm for Data-Driven DoA Estimation](https://arxiv.org/abs/2109.10581)
+
 ## Abstract
 
 Direction of arrival (DoA) estimation is a crucial task in sensor array signal processing, giving rise to various successful model-based (MB) algorithms as well as recently developed data-driven (DD) methods. This paper introduces a new hybrid MB/DD DoA estimation architecture, based on the classical multiple signal classification (MUSIC) algorithm. Our approach augments crucial aspects of the original MUSIC structure with specifically designed neural architectures, allowing it to overcome certain limitations of the purely MB method, such as its inability to successfully localize coherent sources. The deep augmented MUSIC algorithm is shown to outperform its unaltered version with a superior resolution.
