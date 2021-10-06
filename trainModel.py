@@ -63,7 +63,7 @@ tf.config.run_functions_eagerly(True)
 #****************************************#
 #   read files (may need to alter path)  #
 #****************************************#
-hf = h5py.File('data/m8/d5_l100_snr10_1k.h5', 'r')
+hf = h5py.File('data/m8/d5_l200_snr10_10k_c.h5', 'r')
 
 dataX = np.array(hf.get('X'))
 dataY = np.array(hf.get('Y'))
@@ -142,7 +142,7 @@ trainEVD = np.zeros((num_samples, m, n)) + 1j * np.zeros((num_samples, m, n))
 # trainEVD = np.concatenate((trainEVD_real, trainEVD_imag), axis=1)
 
 
-ENTIRE = True   # set to true when testing with entire data
+ENTIRE = False   # set to true when testing with entire data
 
 if ENTIRE:
     # take entire set for testing
@@ -155,13 +155,13 @@ else:
 
 if __name__ == "__main__":
 
-    TRAIN = False   # set to true when training a model
-    E2E = False   # set to true when evaluating an end2end model
-    SPEC = True   # set to true when training with Cov and Spec
+    TRAIN = True   # set to true when training a model
+    E2E = True   # set to true when evaluating an end2end model
+    SPEC = False   # set to true when training with Cov and Spec
 
     LOSS = inversePeaks
 
-    x, y = deepMUSICorig()
+    x, y = create_model_alternative()
     model = Model(x, y)
 
     if TRAIN:
@@ -170,11 +170,11 @@ if __name__ == "__main__":
 
         model.summary()
         model.compile(loss=LOSS, optimizer=Adam(lr=0.001))
-        checkpoint = ModelCheckpoint(save_best_only=True, filepath='model/deep_d2.h5',
+        checkpoint = ModelCheckpoint(save_best_only=True, filepath='model/deepAugMUSIC_d5.h5',
                                      save_weights_only=True, verbose=1)
 
         if SPEC:
-            q = 8
+            q = 24
 
             trainY, testY = np.array_split(trainY, q, axis=1), np.array_split(testY, q, axis=1)
             for i in range(q): trainY[i] = StandardScaler().fit_transform(trainY[i])
@@ -193,7 +193,7 @@ if __name__ == "__main__":
             results = model.evaluate(testX, testY, batch_size=batch_size)
             print("TEST LOSS:", results)
 
-    else: model.load_weights("model/deep_q24_d5.h5")
+    else: model.load_weights("model/deepAugMUSIC_d5.h5")
 
 
     #*********************#
