@@ -330,6 +330,11 @@ def create_model_E2E_simpleRNN():
 #   model   #
 #***********#
 def create_model_alternative():
+    """
+        Deep augmented MUSIC as presented in
+        "DEEP AUGMENTED MUSIC ALGORITHM FOR DATA-DRIVEN DOA ESTIMATION".
+
+    """
     x = Input((2 * m, snapshots))
 
     y = Permute((2, 1))(x)
@@ -413,46 +418,6 @@ def create_model_alternative_noEVD():
     y = Dense(d)(y)
 
     return x, y
-
-
-import tensorflow_probability as tfp
-
-
-#***********#
-#   model   #
-#***********#
-def test():
-    x = Input((2 * m, snapshots))
-
-    # transform to complex numbers
-    yReal = Lambda(lambda y: y[:, :m])(x)
-    yImag = Lambda(lambda y: y[:, m:])(x)
-    y = tf.complex(yReal, yImag)
-
-    # covariance
-    y = Lambda(lambda y: tfp.stats.covariance(y, sample_axis=2, event_axis=1))(y)
-
-    # eigenvector decomposition
-    yVal, yVec = Lambda(lambda y: tf.linalg.eig(y))(y)
-
-    # chose n smallest eignevalues/eigenvectors
-    yVec = Lambda(lambda y: y[:, :, d:])(yVec)
-
-    # transform back to real and imag part stacked
-    yReal = tf.math.real(yVec)
-    yImag = tf.math.imag(yVec)
-    y = Concatenate(axis=1)([yReal, yImag])
-
-    y = Lambda(lambda y: calculate_spectrum(y))(y)
-
-    y = Dense(2 * m, activation='relu')(y)
-    y = Dense(2 * m, activation='relu')(y)
-    y = Dense(2 * m, activation='relu')(y)
-
-    y = Dense(d)(y)
-
-    return x, y
-
 
 
 #***********#
