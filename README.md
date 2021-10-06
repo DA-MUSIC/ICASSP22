@@ -21,3 +21,18 @@ This repository consists of following Python scripts:
 * The `syntheticEx.py` script implements synthetic examples for DoA and combines them to a datase.
 * The `trainModel.py` implements the training of the neural augmentation.
 * The `utils.py` defines some helpful functions.
+
+
+## Requirements
+
+| Module | Version |
+| :--- | :---: |
+| scipy  | 1.6.2  |
+| h5py  | 2.10.0 |
+| pandas  | 0.25.1 |
+| matplotlib  | 3.1.1 |
+| keras | 2.3.1 |
+| numpy  | 1.19.3 |
+| tensorflow  | 2.4.1 |
+| tqdm  | 4.36.1 |
+| scikit_learn | 0.24.2 |
