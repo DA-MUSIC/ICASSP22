@@ -1,6 +1,6 @@
 # DEEP AUGMENTED MUSIC ALGORITHM FOR DATA-DRIVEN DOA ESTIMATION
 
-[Deep Augmented MUSIC Algorithm for Data-Driven DoA Estimation](https://arxiv.org/abs/2109.10581)
+[Deep Augmented MUSIC Algorithm for Data-Driven DoA Estimation](https://ieeexplore.ieee.org/document/9746637)
 
 ## Abstract
 
